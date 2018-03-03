@@ -1,3 +1,1 @@
-# FrankHongS.github.io
-
-## My Blog Website
+# My Blog Website
