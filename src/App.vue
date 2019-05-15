@@ -23,7 +23,6 @@ export default {
   },
   methods:{
     checkIfTitleBarShow(flag){
-      // console.log(flag);
       if(flag!=this.shouldTitleBarShow){
         this.shouldTitleBarShow=flag;
       }
@@ -41,13 +40,6 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 </script>
 
-<style lang='scss' scoped>
-
-@import "assets/styles/global";
-
-#app{
-  position: relative;
-  overflow: hidden;
-}
+<style>
 
 </style>
