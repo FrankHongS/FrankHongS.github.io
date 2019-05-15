@@ -28,7 +28,7 @@ export default {
 @import '../assets/styles/global';
 
 .title-wrapper{
-    position: absolute;
+    position: fixed;
     top:0;
     left: 0;
     width: 100%;

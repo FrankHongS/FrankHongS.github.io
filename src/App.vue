@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <TitleBar :shouldTitleBarShow="shouldTitleBarShow"/>
-    <BlogList/>
+    <BlogList
+    @checkIfTitleBarShow="checkIfTitleBarShow"/>
   </div>
 </template>
 
@@ -19,6 +20,14 @@ export default {
   components: {
     TitleBar,
     BlogList
+  },
+  methods:{
+    checkIfTitleBarShow(flag){
+      // console.log(flag);
+      if(flag!=this.shouldTitleBarShow){
+        this.shouldTitleBarShow=flag;
+      }
+    }
   }
 }
 
@@ -32,5 +41,13 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 </script>
 
-<style>
+<style lang='scss' scoped>
+
+@import "assets/styles/global";
+
+#app{
+  position: relative;
+  overflow: hidden;
+}
+
 </style>

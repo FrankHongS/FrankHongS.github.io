@@ -63,7 +63,8 @@ export default {
             "关于Android事件分发机制关于Android事件分发机制",
           date: "2019-5-15 16:12"
         }
-      ]
+      ],
+      originalScrollTop:0
     };
   },
 
@@ -71,6 +72,19 @@ export default {
       goToBlogDetail(index){
           alert(index);
       }
+  },
+
+  mounted(){
+    window.addEventListener('scroll',()=>{
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      const delta=scrollTop-this.originalScrollTop;
+      this.originalScrollTop=scrollTop;
+      if(delta>0){
+        this.$emit('checkIfTitleBarShow',false);
+      }else if(delta<0){
+        this.$emit('checkIfTitleBarShow',true);
+      }
+    });
   }
 };
 </script>
