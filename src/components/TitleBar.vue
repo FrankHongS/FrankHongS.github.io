@@ -6,9 +6,10 @@
           <span class="name">Frank Hon</span>
         </div>
         <div class="index-wrapper">
-          <div class="category-wrapper">
+          <div class="category-wrapper" @click="goToList">
             <i class="icon-category"/>
             <span class="category">category</span>
+            <!-- <router-link to="/home" class="category">category</router-link> -->
           </div>
         </div>
     </div>
@@ -19,7 +20,12 @@
 export default {
   props:[
     'shouldTitleBarShow'
-  ]
+  ],
+  methods:{
+    goToList(){
+      this.$router.push('/home');
+    }
+  }
 }
 
 </script>

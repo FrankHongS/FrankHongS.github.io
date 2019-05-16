@@ -3,8 +3,8 @@
     <div class="blog-list">
       <ul>
         <li class="blog-item" v-for="(item,index) of blogTitleList " :key='index'>
-          <div class="blog-desc-wrapper" @click='goToBlogDetail(index)'>
-            <span class="blog-title">{{item.title}}</span>
+          <div class="blog-desc-wrapper" @click='goToBlogDetail(index,item.title)'>
+            <span class="blog-title">{{item.title.split('.')[0]}}</span>
             <span class="blog-date">{{item.date}}</span>
           </div>
         </li>
@@ -14,67 +14,27 @@
 </template>
 
 <script>
+
+import data from '@/assets/config.json'
+
 export default {
   data() {
     return {
-      blogTitleList: [
-        {
-          title:
-            "关于Android事件分发机制关于Android事件分发机制",
-          date: "2019-5-15 16:12"
-        },
-        {
-          title:
-            "关于Android事件分发机制",
-          date: "2019-5-15 16:12"
-        },
-        {
-          title:
-            "关于Android事件分发机制关于Android事件分发机制关于Android事件分发机制关于Android事件分发机制关于Android事件分发机制关于Android事件分发机制",
-          date: "2019-5-15 16:12"
-        },
-        {
-          title:
-            "关于Android事件分发机制关于Android事件分发机制关于Android事件分发机制关于Android事件分发机制关于Android事件分发机制关于Android事件分发机制",
-          date: "2019-5-15 16:12"
-        },
-        {
-          title:
-            "关于Android事件分发机制关于Android事件分发机制",
-          date: "2019-5-15 17:12"
-        },
-        {
-          title:
-            "关于Android事件分发机制关于Android事件分发机制",
-          date: "2019-5-15 16:12"
-        },
-        {
-          title:
-            "关于Android事件分发机制关于Android事件分发机制",
-          date: "2019-5-15 16:12"
-        },
-        {
-          title:
-            "关于Android事件分发机制关于Android事件分发机制",
-          date: "2019-5-15 16:12"
-        },
-        {
-          title:
-            "关于Android事件分发机制关于Android事件分发机制",
-          date: "2019-5-15 16:12"
-        }
-      ],
+      blogTitleList: [],
       originalScrollTop:0
     };
   },
 
   methods:{
-      goToBlogDetail(index){
-          alert(index);
+      goToBlogDetail(index,title){
+        this.$router.push('/detail/'+title);
       }
   },
 
   mounted(){
+
+    this.blogTitleList=data;
+
     window.addEventListener('scroll',()=>{
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
       const delta=scrollTop-this.originalScrollTop;
@@ -94,7 +54,6 @@ export default {
 .blog-list {
   width: 100%;
   height: 100%;
-  display: flex;
   @include center;
   margin-top: px2rem(74);
 

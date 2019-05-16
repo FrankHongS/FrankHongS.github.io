@@ -1,14 +1,13 @@
 <template>
-  <div id="app">
+  <div>
     <TitleBar :shouldTitleBarShow="shouldTitleBarShow"/>
-    <BlogList
-    @checkIfTitleBarShow="checkIfTitleBarShow"/>
+    <router-view/>
   </div>
 </template>
 
 <script>
+
 import TitleBar from '@/components/TitleBar.vue'
-import BlogList from '@/components/BlogList.vue'
 
 export default {
   name: 'app',
@@ -17,16 +16,8 @@ export default {
       shouldTitleBarShow:true,
     };
   },
-  components: {
-    TitleBar,
-    BlogList
-  },
-  methods:{
-    checkIfTitleBarShow(flag){
-      if(flag!=this.shouldTitleBarShow){
-        this.shouldTitleBarShow=flag;
-      }
-    }
+  components:{
+    TitleBar
   }
 }
 
