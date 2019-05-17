@@ -1,5 +1,6 @@
 <template>
   <div>
+    <TitleBar/>
     <div class="blog-list">
       <ul>
         <li class="blog-item" v-for="(item,index) of blogTitleList " :key='index'>
@@ -16,6 +17,7 @@
 <script>
 
 import data from '@/assets/config.json'
+import TitleBar from '@/components/TitleBar.vue'
 
 export default {
   data() {
@@ -24,27 +26,18 @@ export default {
       originalScrollTop:0
     };
   },
-
+  components:{
+    TitleBar
+  },
   methods:{
       goToBlogDetail(index,title){
         this.$router.push('/detail/'+title);
       }
   },
-
   mounted(){
 
     this.blogTitleList=data;
 
-    window.addEventListener('scroll',()=>{
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-      const delta=scrollTop-this.originalScrollTop;
-      this.originalScrollTop=scrollTop;
-      if(delta>0){
-        this.$emit('checkIfTitleBarShow',false);
-      }else if(delta<0){
-        this.$emit('checkIfTitleBarShow',true);
-      }
-    });
   }
 };
 </script>

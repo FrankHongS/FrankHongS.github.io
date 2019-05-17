@@ -5,6 +5,7 @@ import axios from 'axios'
 import '@/assets/styles/icon.css'
 import '@/assets/styles/global.scss'
 
+
 Vue.config.productionTip = false;
 Vue.prototype.$axios=axios;
 

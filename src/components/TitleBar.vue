@@ -1,30 +1,49 @@
 <template>
-<transition name="slide-down">
-     <div class="title-wrapper" v-show="shouldTitleBarShow">
-        <div class="profile-wrapper">
-          <i class="icon-profile"/>
-          <span class="name">Frank Hon</span>
-        </div>
-        <div class="index-wrapper">
-          <div class="category-wrapper" @click="goToList">
-            <i class="icon-category"/>
-            <span class="category">category</span>
-            <!-- <router-link to="/home" class="category">category</router-link> -->
+  <transition name="slide-down">
+      <div class="title-wrapper" v-show="shouldTitleBarShow">
+          <div class="profile-wrapper">
+            <i class="icon-profile"/>
+            <span class="name">Frank Hon</span>
           </div>
-        </div>
-    </div>
-</transition>
+          <div class="index-wrapper">
+            <div class="category-wrapper" @click="goToList">
+              <i class="icon-category"/>
+              <span class="category">category</span>
+              <!-- <router-link to="/home" class="category">category</router-link> -->
+            </div>
+          </div>
+      </div>
+  </transition>
 </template>
 
 <script>
 export default {
-  props:[
-    'shouldTitleBarShow'
-  ],
+  data(){
+    return {
+      shouldTitleBarShow:true
+    };
+  },
   methods:{
     goToList(){
       this.$router.push('/home');
     }
+  },
+  mounted(){
+    // reset page offset
+    pageYOffset=0;
+    document.documentElement.scrollTop=0;
+    document.body.scrollTop=0;
+
+    window.addEventListener('scroll',()=>{
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      const delta=scrollTop-this.originalScrollTop;
+      this.originalScrollTop=scrollTop;
+      if(delta>0){
+        this.shouldTitleBarShow=false;
+      }else if(delta<0){
+        this.shouldTitleBarShow=true;
+      }
+    });
   }
 }
 
