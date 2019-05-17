@@ -16,9 +16,11 @@ body{
     box-sizing: border-box;
 }
 
-ol, ul {
-    list-style: inside;
-    padding-left: 2em;
+.blog-detail{
+    ol, ul {
+        list-style: inside;
+        padding-left: 2em;
+    }
 }
 
 blockquote{
