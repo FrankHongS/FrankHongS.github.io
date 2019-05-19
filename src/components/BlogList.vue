@@ -16,7 +16,7 @@
 
 <script>
 
-import data from '@/assets/config.json'
+// import data from '@/assets/config.json'
 import TitleBar from '@/components/TitleBar.vue'
 
 export default {
@@ -36,8 +36,31 @@ export default {
   },
   mounted(){
 
-    this.blogTitleList=data;
+      this.$axios
+      .get('/config.json')
+      .then(
+        res=>{
+          this.blogTitleList=res.data
+        }
+      )
+      .catch(
+        error=>{
+          console.log(error);
+        }
+      );
 
+    // this.$axios
+    //     .get('/blog')
+    //     .then(
+    //       res=>{
+    //         console.log(res);
+    //       }
+    //     )
+    //     .catch(
+    //       error=>{
+    //         console.log(error);
+    //       }
+    //     );
   }
 };
 </script>
