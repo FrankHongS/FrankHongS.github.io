@@ -1,6 +1,7 @@
 <template>
   <div>
-    <TitleBar/>
+    <TitleBar
+    @doSearch="doSearch"/>
     <div class="blog-list">
       <ul>
         <li class="blog-item" v-for="(item,index) of blogTitleList " :key='index'>
@@ -22,6 +23,7 @@ import TitleBar from '@/components/TitleBar.vue'
 export default {
   data() {
     return {
+      originalBlogTitleList:[],
       blogTitleList: [],
       originalScrollTop:0
     };
@@ -32,6 +34,25 @@ export default {
   methods:{
       goToBlogDetail(index,title){
         this.$router.push('/detail/'+title);
+      },
+
+      doSearch(input){
+        if(input==''){
+          this.blogTitleList=this.originalBlogTitleList;
+          return;
+        }
+        
+        const regx=new RegExp(input,'g');
+        const result=[];
+        this.blogTitleList.forEach(
+          item=>{
+            if(regx.test(item.title)){
+              result.push(item);
+            }
+          }
+        );
+
+        this.blogTitleList=result;
       }
   },
   mounted(){
@@ -40,7 +61,8 @@ export default {
       .get('/config.json')
       .then(
         res=>{
-          this.blogTitleList=res.data
+          this.blogTitleList=res.data;
+          this.originalBlogTitleList=res.data;
         }
       )
       .catch(

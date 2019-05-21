@@ -5,10 +5,15 @@
             <i class="icon-profile"/>
             <span class="name">Frank Hon</span>
           </div>
+          <div class="search-wrapper">
+            <i class="icon-search"/>
+            <input class="search-content" type="text" placeholder="search" v-model="searchContent"
+            @keyup.enter="onSearch">
+          </div>
           <div class="index-wrapper">
             <div class="category-wrapper" @click="goToList">
               <i class="icon-category"/>
-              <span class="category">category</span>
+              <span class="category">Category</span>
               <!-- <router-link to="/home" class="category">category</router-link> -->
             </div>
           </div>
@@ -20,12 +25,16 @@
 export default {
   data(){
     return {
-      shouldTitleBarShow:true
+      shouldTitleBarShow:true,
+      searchContent:''
     };
   },
   methods:{
     goToList(){
       this.$router.push('/home');
+    },
+    onSearch(ev){
+      this.$emit('doSearch',this.searchContent);
     }
   },
   mounted(){
@@ -65,13 +74,37 @@ export default {
 
     .profile-wrapper{
       flex: 0 0 px2rem(160);
-      display: flex;
       @include center;
       cursor: pointer;
 
       .name{
         font-size: px2rem(20);
         padding-left: px2rem(8);
+      }
+    }
+
+    .search-wrapper{
+      flex: 0 0 px2rem(560);
+      @include center;
+      padding-left: px2rem(20);
+      margin: px2rem(8) px2rem(18);
+      background: #f1f3f4;
+      border-radius: px2rem(4);
+
+      .icon-search{
+        font-size: px2rem(25);
+        padding-right: px2rem(6);
+      }
+
+      .search-content{
+        flex: 1;
+        height: px2rem(20);
+        font-size: px2rem(20);
+        border: none;
+        background:none;  
+        outline:none;
+        padding: px2rem(8);
+        // color:#80868b;
       }
     }
 
