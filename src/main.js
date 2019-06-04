@@ -9,6 +9,9 @@ import '@/assets/styles/global.scss'
 Vue.config.productionTip = false;
 Vue.prototype.$axios=axios;
 
+const bus=new Vue();
+Vue.prototype.bus=bus;
+
 new Vue({
   router,
   render: h => h(App),

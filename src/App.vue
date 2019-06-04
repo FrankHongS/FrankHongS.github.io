@@ -1,15 +1,19 @@
 <template>
   <div>
+    <TitleBar/>
     <router-view/>
   </div>
 </template>
 
 <script>
 
-
+import TitleBar from '@/components/TitleBar.vue'
 
 export default {
   name: 'app',
+  components:{
+    TitleBar
+  }
 }
 
 //动态设置字体大小

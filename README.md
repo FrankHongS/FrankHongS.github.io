@@ -27,3 +27,7 @@ yarn run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Features
+ * 添加搜索功能
+ * 添加分页功能

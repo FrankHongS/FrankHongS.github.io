@@ -34,7 +34,7 @@ export default {
       this.$router.push('/home');
     },
     onSearch(ev){
-      this.$emit('doSearch',this.searchContent);
+      this.bus.$emit('onSearch',this.searchContent);
     }
   },
   mounted(){

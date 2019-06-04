@@ -1,11 +1,11 @@
 <template>
   <div>
-    <TitleBar
-    @doSearch="doSearch"/>
+    <!-- <TitleBar
+    @doSearch="doSearch"/>-->
     <div class="blog-list">
       <ul>
-        <li class="blog-item" v-for="(item,index) of blogTitleList " :key='index'>
-          <div class="blog-desc-wrapper" @click='goToBlogDetail(index,item.title)'>
+        <li class="blog-item" v-for="(item,index) of blogTitleList " :key="index">
+          <div class="blog-desc-wrapper" @click="goToBlogDetail(index,item.title)">
             <span class="blog-title">{{item.title.split('.')[0]}}</span>
             <span class="blog-date">{{item.date}}</span>
           </div>
@@ -16,60 +16,56 @@
 </template>
 
 <script>
-
 // import data from '@/assets/config.json'
-import TitleBar from '@/components/TitleBar.vue'
+import TitleBar from "@/components/TitleBar.vue";
 
 export default {
   data() {
     return {
-      originalBlogTitleList:[],
+      originalBlogTitleList: [],
       blogTitleList: [],
-      originalScrollTop:0
+      originalScrollTop: 0
     };
   },
-  components:{
+  components: {
     TitleBar
   },
-  methods:{
-      goToBlogDetail(index,title){
-        this.$router.push('/detail/'+title);
-      },
+  methods: {
+    goToBlogDetail(index, title) {
+      this.$router.push("/detail/" + title);
+    },
 
-      doSearch(input){
-        if(input==''){
-          this.blogTitleList=this.originalBlogTitleList;
-          return;
-        }
-        
-        const regx=new RegExp(input,'g');
-        const result=[];
-        this.blogTitleList.forEach(
-          item=>{
-            if(regx.test(item.title)){
-              result.push(item);
-            }
-          }
-        );
-
-        this.blogTitleList=result;
+    doSearch(input) {
+      if (input == "") {
+        this.blogTitleList = this.originalBlogTitleList;
+        return;
       }
-  },
-  mounted(){
 
-      this.$axios
-      .get('/config.json')
-      .then(
-        res=>{
-          this.blogTitleList=res.data;
-          this.originalBlogTitleList=res.data;
+      const regx = new RegExp(input, "g");
+      const result = [];
+      this.blogTitleList.forEach(item => {
+        if (regx.test(item.title)) {
+          result.push(item);
         }
-      )
-      .catch(
-        error=>{
-          console.log(error);
-        }
-      );
+      });
+
+      this.blogTitleList = result;
+    }
+  },
+  mounted() {
+    this.bus.$on("onSearch", keyword => {
+      this.doSearch(keyword);
+    });
+
+    this.$axios
+      .get("/config.json")
+      .then(res => {
+        this.blogTitleList = res.data;
+        this.originalBlogTitleList = res.data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
 
     // this.$axios
     //     .get('/blog')
@@ -96,7 +92,7 @@ export default {
   margin-top: px2rem(74);
 
   ul {
-      width: 80%;
+    width: 80%;
   }
   .blog-item {
     display: flex;
@@ -107,7 +103,7 @@ export default {
     margin: px2rem(16) 0;
 
     .blog-desc-wrapper {
-      flex:1;
+      flex: 1;
       display: flex;
       flex-direction: column;
       padding: px2rem(8);
