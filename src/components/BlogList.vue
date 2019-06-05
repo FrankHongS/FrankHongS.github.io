@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- <TitleBar
-    @doSearch="doSearch"/>-->
     <div class="blog-list">
       <ul>
         <li class="blog-item" v-for="(item,index) of blogTitleList " :key="index">
@@ -17,7 +15,6 @@
 
 <script>
 // import data from '@/assets/config.json'
-import TitleBar from "@/components/TitleBar.vue";
 
 export default {
   data() {
@@ -27,12 +24,9 @@ export default {
       originalScrollTop: 0
     };
   },
-  components: {
-    TitleBar
-  },
   methods: {
     goToBlogDetail(index, title) {
-      this.$router.push("/detail/" + title);
+      this.$router.push('/detail/'+title);
     },
 
     doSearch(input) {
@@ -43,16 +37,27 @@ export default {
 
       const regx = new RegExp(input, "g");
       const result = [];
-      this.blogTitleList.forEach(item => {
+      this.originalBlogTitleList.forEach(item => {
         if (regx.test(item.title)) {
           result.push(item);
         }
       });
+      // this.blogTitleList.forEach(item => {
+      //   if (regx.test(item.title)) {
+      //     result.push(item);
+      //   }
+      // });todo 连续按r，有bug
 
       this.blogTitleList = result;
+    },
+    check(){
+      const keyword=this.$route.params.keyword;
+      if(keyword){
+        this.doSearch(keyword);
+      }
     }
   },
-  mounted() {
+  created() {
     this.bus.$on("onSearch", keyword => {
       this.doSearch(keyword);
     });
@@ -62,6 +67,8 @@ export default {
       .then(res => {
         this.blogTitleList = res.data;
         this.originalBlogTitleList = res.data;
+
+        this.check()
       })
       .catch(error => {
         console.log(error);
@@ -79,6 +86,9 @@ export default {
     //         console.log(error);
     //       }
     //     );
+  },
+  mounted(){
+    
   }
 };
 </script>

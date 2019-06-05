@@ -6,6 +6,7 @@ import BlogDetail from '@/components/BlogDetail'
 Vue.use(Router);
 
 export default new Router({
+    // mode: 'history',
     routes: [
         {
             path: '/',
@@ -13,10 +14,13 @@ export default new Router({
         },
         {
             path: '/home',
+            name: 'BlogList',
             component: BlogList
         },
         {
+            // path: '/detail',
             path: '/detail/:title',
+            name: 'BlogDetail',
             component: BlogDetail
         }
     ]

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <TitleBar/>
     <div class="blog-detail">
       <div class="content">
         <div class="blog-title-wrapper">
@@ -15,7 +14,6 @@
 <script>
 import Remarkable from "remarkable";
 import hljs from "highlight.js";
-import TitleBar from "@/components/TitleBar.vue";
 import "highlight.js/styles/github.css";
 
 export default {
@@ -25,10 +23,18 @@ export default {
       title: ""
     };
   },
-  components: {
-    TitleBar
-  },
   mounted() {
+
+    this.bus.$on("onSearch", keyword => {
+      if(keyword){
+        this.$router.push({
+          name:'BlogList',
+          params:{
+            keyword
+          }
+        });
+      }
+    });
 
     const title = this.$route.params.title;
     this.title = title.split(".")[0];
