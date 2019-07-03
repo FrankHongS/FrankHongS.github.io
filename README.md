@@ -1,1 +1,1 @@
-# [Frank Hon's blog](https://frankhongs.github.io)
+# Frank Hon's [blog](https://frankhongs.github.io)
