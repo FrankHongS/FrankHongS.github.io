@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="blog-list">
+      <div class="category-wrapper" v-show="category">
+        <span class="category">{{category}}</span>
+      </div>
       <ul>
         <li class="blog-item" v-for="(item,index) of blogTitleList " :key="index">
           <div class="blog-desc-wrapper" @click="goToBlogDetail(index,item.title)">
@@ -21,12 +24,13 @@ export default {
     return {
       originalBlogTitleList: [],
       blogTitleList: [],
-      originalScrollTop: 0
+      originalScrollTop: 0,
+      category: ""
     };
   },
   methods: {
     goToBlogDetail(index, title) {
-      this.$router.push('/detail/'+title);
+      this.$router.push("/detail/" + title);
     },
 
     doSearch(input) {
@@ -50,9 +54,8 @@ export default {
 
       this.blogTitleList = result;
     },
-    check(){
-      const keyword=this.$route.params.keyword;
-      if(keyword){
+    check(keyword) {
+      if (keyword) {
         this.doSearch(keyword);
       }
     }
@@ -62,13 +65,30 @@ export default {
       this.doSearch(keyword);
     });
 
+    const category = this.$route.params.category;
+    const keyword = this.$route.params.keyword;
+
     this.$axios
       .get("/config.json")
       .then(res => {
-        this.blogTitleList = res.data;
-        this.originalBlogTitleList = res.data;
+        if (keyword) {
+          res.data.forEach(item => {
+            this.blogTitleList = this.blogTitleList.concat(item.blog);
+          });
+          this.originalBlogTitleList = this.blogTitleList;
+          this.check(keyword);
+          return;
+        }
 
-        this.check()
+        for (let i = 0; i < res.data.length; i++) {
+          const item = res.data[i];
+          if (category === item.category) {
+            this.category = category;
+            this.blogTitleList = this.blogTitleList.concat(item.blog);
+            this.originalBlogTitleList = this.blogTitleList;
+            break;
+          }
+        }
       })
       .catch(error => {
         console.log(error);
@@ -87,9 +107,7 @@ export default {
     //       }
     //     );
   },
-  mounted(){
-    
-  }
+  mounted() {}
 };
 </script>
 <style lang='scss' scoped>
@@ -99,7 +117,19 @@ export default {
   width: 100%;
   height: 100%;
   @include center;
+  flex-direction: column;
   margin-top: px2rem(74);
+
+  .category-wrapper {
+    width: 80%;
+    margin-top: px2rem(14);
+    font-size: px2rem(24);
+    color: #666666;
+    .category{
+      border: #666666 1px solid;
+      padding: px2rem(4);
+    }
+  }
 
   ul {
     width: 80%;

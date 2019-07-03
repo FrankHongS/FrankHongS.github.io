@@ -25,17 +25,6 @@ export default {
   },
   mounted() {
 
-    this.bus.$on("onSearch", keyword => {
-      if(keyword){
-        this.$router.push({
-          name:'BlogList',
-          params:{
-            keyword
-          }
-        });
-      }
-    });
-
     const title = this.$route.params.title;
     this.title = title.split(".")[0];
 

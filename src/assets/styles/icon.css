@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?ahdexq');
-  src:  url('fonts/icomoon.eot?ahdexq#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?ahdexq') format('truetype'),
-    url('fonts/icomoon.woff?ahdexq') format('woff'),
-    url('fonts/icomoon.svg?ahdexq#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?ulmf0t');
+  src:  url('fonts/icomoon.eot?ulmf0t#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?ulmf0t') format('truetype'),
+    url('fonts/icomoon.woff?ulmf0t') format('woff'),
+    url('fonts/icomoon.svg?ulmf0t#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -32,4 +32,7 @@
 }
 .icon-profile:before {
   content: "\e902";
+}
+.icon-folder:before {
+  content: "\e930";
 }

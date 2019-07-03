@@ -53,6 +53,17 @@ export default {
         this.shouldTitleBarShow=true;
       }
     });
+
+    this.bus.$on("onSearch", keyword => {
+      if(keyword){
+        this.$router.push({
+          name:'BlogList',
+          params:{
+            keyword
+          }
+        });
+      }
+    });
   }
 }
 
